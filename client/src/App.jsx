@@ -62,7 +62,7 @@ function App() {
       formData.append("resume", selectedFile);
 
       const response = await fetch(
-        "http://localhost:5000/api/upload",
+         "https://ai-resume-analyzer-5csg.onrender.com/api/upload",
         {
           method: "POST",
           body: formData,
