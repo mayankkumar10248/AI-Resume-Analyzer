@@ -7,13 +7,25 @@ const pdfParse = require("pdf-parse");
 const dotenv = require("dotenv");
 const Groq = require("groq-sdk");
 
+// NEW
+const authRoutes = require("./routes/authRoutes");
+const connectDB = require("./config/db");
+
 dotenv.config();
+
+connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
+
+// =========================
+// AUTH ROUTES
+// =========================
+
+app.use("/api/auth", authRoutes);
 
 // =========================
 // GROQ SETUP
@@ -68,6 +80,7 @@ app.get("/api/test", (req, res) => {
     message: "Backend Connected Successfully",
   });
 });
+
 // =========================
 // Upload Resume + AI Analysis
 // =========================
@@ -84,19 +97,12 @@ app.post("/api/upload", upload.single("resume"), async (req, res) => {
     console.log("====================================");
     console.log("Resume Uploaded:", req.file.originalname);
 
-    // Read PDF
     const pdfBuffer = fs.readFileSync(req.file.path);
-
-    // Extract text
     const pdfData = await pdfParse(pdfBuffer);
 
     const resumeText = pdfData.text;
 
     console.log("PDF Text Extracted Successfully");
-
-    // =========================
-    // Prompt for Groq AI
-    // =========================
 
     const prompt = `
 You are an expert ATS Resume Analyzer.
@@ -134,14 +140,12 @@ ${resumeText}
     const chatCompletion =
       await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
-
         messages: [
           {
             role: "user",
             content: prompt,
           },
         ],
-
         temperature: 0.3,
       });
 
@@ -156,7 +160,9 @@ ${resumeText}
       resumeText,
       analysis,
     });
+
   } catch (error) {
+
     console.error("UPLOAD ERROR");
     console.error(error);
 
@@ -166,11 +172,13 @@ ${resumeText}
     });
   }
 });
+
 // =========================
 // Error Handler
 // =========================
 
 app.use((err, req, res, next) => {
+
   console.error("====================================");
   console.error("SERVER ERROR");
   console.error(err);
@@ -180,6 +188,7 @@ app.use((err, req, res, next) => {
     success: false,
     message: err.message || "Internal Server Error",
   });
+
 });
 
 // =========================

@@ -1,16 +1,8 @@
  const express = require("express");
-
 const router = express.Router();
 
-router.post("/register", (req, res) => {
-  console.log("Register API Called");
-  console.log(req.body);
+const { registerUser } = require("../controllers/authController");
 
-  res.status(200).json({
-    success: true,
-    message: "Register API Working",
-    data: req.body,
-  });
-});
+router.post("/register", registerUser);
 
 module.exports = router;

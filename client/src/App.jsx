@@ -1,6 +1,7 @@
  import { useState } from "react";
 import "./App.css";
 import Login from "./Login";
+import Register from "./Register";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -192,11 +193,24 @@ function App() {
     getSection("Suggestions")
   );
 
-  // Show login page
-  if (showLogin) {
+  // ================= LOGIN PAGE =================
+
+  if (showLogin === true) {
     return (
       <Login
         onBack={() => setShowLogin(false)}
+        onRegister={() => setShowLogin("register")}
+      />
+    );
+  }
+
+  // ================= REGISTER PAGE =================
+
+  if (showLogin === "register") {
+    return (
+      <Register
+        onBack={() => setShowLogin(false)}
+        onLogin={() => setShowLogin(true)}
       />
     );
   }
@@ -205,6 +219,7 @@ function App() {
     <div className="app">
 
       {/* NAVBAR */}
+
       <header className="navbar">
 
         <div className="logo">
@@ -221,6 +236,7 @@ function App() {
       </header>
 
       {/* HERO */}
+
       <main className="hero">
 
         <div className="hero-content">
@@ -241,7 +257,8 @@ function App() {
             suggestions.
           </p>
 
-          {/* UPLOAD CARD */}
+          {/* UPLOAD BOX */}
+
           <div className="upload-box">
 
             <div className="upload-icon">
@@ -295,7 +312,8 @@ function App() {
 
           </div>
 
-          {/* BACKEND TEST */}
+          {/* TEST BACKEND */}
+
           <button
             className="test-button"
             onClick={testBackend}
@@ -305,6 +323,7 @@ function App() {
           </button>
 
           {/* MESSAGE */}
+
           {message && (
             <div className="message">
               {message}
@@ -312,6 +331,7 @@ function App() {
           )}
 
           {/* RESULTS */}
+
           {analysis && (
             <section className="results-section">
 
@@ -332,6 +352,7 @@ function App() {
               </div>
 
               {/* SCORE */}
+
               {score !== null && (
                 <div className="score-card">
 
@@ -356,6 +377,7 @@ function App() {
               )}
 
               {/* TECHNICAL SKILLS */}
+
               {technicalSkills.length > 0 && (
                 <div className="result-card">
 
@@ -398,6 +420,7 @@ function App() {
               )}
 
               {/* SOFT SKILLS */}
+
               {softSkills.length > 0 && (
                 <div className="result-card">
 
@@ -440,6 +463,7 @@ function App() {
               )}
 
               {/* STRENGTHS */}
+
               {strengths.length > 0 && (
                 <div className="result-card">
 
@@ -490,6 +514,7 @@ function App() {
               )}
 
               {/* WEAKNESSES */}
+
               {weaknesses.length > 0 && (
                 <div className="result-card">
 
@@ -540,6 +565,7 @@ function App() {
               )}
 
               {/* MISSING SKILLS */}
+
               {missingSkills.length > 0 && (
                 <div className="result-card">
 
@@ -582,6 +608,7 @@ function App() {
               )}
 
               {/* SUGGESTIONS */}
+
               {suggestions.length > 0 && (
                 <div className="result-card">
 
@@ -632,12 +659,14 @@ function App() {
               )}
 
               {/* FALLBACK */}
+
               {!technicalSkills.length &&
                 !softSkills.length &&
                 !strengths.length &&
                 !weaknesses.length &&
                 !missingSkills.length &&
                 !suggestions.length && (
+
                   <div className="result-card">
 
                     <h3>

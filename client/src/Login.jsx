@@ -1,115 +1,77 @@
-import { useState } from "react";
+ import { useState } from "react";
 import "./Login.css";
 
-function Login({ onBack }) {
+function Login({ onBack, onLogin, onRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-    console.log("Login details:", {
-      email,
-      password,
-    });
+    if (!email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
 
-    alert("Login functionality will be connected soon.");
+    alert("Login functionality will be connected to the backend soon.");
+
+    if (onLogin) {
+      onLogin();
+    }
   };
 
   return (
     <div className="login-page">
-
       <div className="login-card">
 
-        <button
-          className="back-button"
-          onClick={onBack}
-        >
+        <button className="back-button" onClick={onBack}>
           ← Back
         </button>
 
-        <div className="login-header">
-          <div className="login-icon">
-            🔐
-          </div>
+        <h1>Welcome Back</h1>
 
-          <h1>Welcome Back</h1>
+        <p className="subtitle">
+          Login to your AI Resume Analyzer account
+        </p>
 
-          <p>
-            Login to continue to your AI Resume Analyzer
-          </p>
-        </div>
+        <form onSubmit={handleLogin}>
 
-        <form onSubmit={handleSubmit}>
-
-          <div className="form-group">
-            <label>Email Address</label>
+          <div className="input-group">
+            <label>Email</label>
 
             <input
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(event) =>
-                setEmail(event.target.value)
-              }
-              required
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div className="form-group">
+          <div className="input-group">
             <label>Password</label>
 
             <input
               type="password"
               placeholder="Enter your password"
               value={password}
-              onChange={(event) =>
-                setPassword(event.target.value)
-              }
-              required
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <div className="login-options">
-            <label className="remember-me">
-              <input type="checkbox" />
-              Remember me
-            </label>
-
-            <button
-              type="button"
-              className="forgot-button"
-              onClick={() =>
-                alert("Password reset will be added later.")
-              }
-            >
-              Forgot password?
-            </button>
-          </div>
-
-          <button
-            type="submit"
-            className="login-submit"
-          >
+          <button type="submit" className="login-submit">
             Login
           </button>
 
         </form>
 
-        <div className="signup-text">
-          Don't have an account?
-          <button
-            type="button"
-            onClick={() =>
-              alert("Registration will be added next.")
-            }
-          >
+        <div className="register-link">
+          Don't have an account?{" "}
+          <span onClick={onRegister}>
             Create account
-          </button>
+          </span>
         </div>
 
       </div>
-
     </div>
   );
 }
