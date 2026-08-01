@@ -11,105 +11,420 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #f4f7fb;
+  background: #f5f7ff;
   color: #1f2937;
 }
 
 .app {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
+/* ================= NAVBAR ================= */
+
 .navbar {
-  background: #ffffff;
+  width: 100%;
   padding: 20px 60px;
+  background: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: 700;
   color: #4f46e5;
 }
 
-.nav-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #4f46e5;
-  color: white;
+.login-button {
+  padding: 11px 24px;
+  border: 1px solid #dfe3ff;
+  border-radius: 10px;
+  background: #eef0ff;
+  color: #4338ca;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
 }
 
+/* ================= HERO ================= */
+
 .hero {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 80px 20px;
+  width: 100%;
+  padding: 70px 20px;
 }
 
 .hero-content {
-  max-width: 700px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  background: #eef0ff;
+  color: #4f46e5;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .hero h1 {
   font-size: 52px;
-  margin-bottom: 20px;
+  line-height: 1.15;
   color: #111827;
+  margin-bottom: 20px;
 }
 
 .hero h1 span {
   color: #4f46e5;
 }
 
-.hero p {
-  font-size: 20px;
-  line-height: 1.6;
+.description {
+  max-width: 680px;
+  margin: 0 auto 40px;
+  font-size: 18px;
+  line-height: 1.7;
   color: #6b7280;
-  margin-bottom: 35px;
+}
+
+/* ================= UPLOAD ================= */
+
+.upload-box {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(31, 41, 55, 0.08);
+}
+
+.upload-icon {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.upload-box h2 {
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.upload-box p {
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+.choose-file-button {
+  display: inline-block;
+  padding: 12px 22px;
+  background: #eef0ff;
+  color: #4f46e5;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.selected-file {
+  margin-top: 20px;
+  padding: 14px;
+  background: #f8f9ff;
+  border: 1px solid #e0e4ff;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.selected-file span {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 5px;
+}
+
+.selected-file strong {
+  display: block;
+  color: #374151;
+  word-break: break-word;
 }
 
 .upload-button {
-  padding: 15px 30px;
-  font-size: 18px;
+  width: 100%;
+  margin-top: 22px;
+  padding: 15px;
   border: none;
   border-radius: 10px;
   background: #4f46e5;
   color: white;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .upload-button:hover {
   background: #3730a3;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
-.file-name {
+
+.upload-button:disabled,
+.test-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================= TEST BUTTON ================= */
+
+.test-button {
   margin-top: 20px;
-  font-size: 16px;
+  padding: 10px 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
   color: #374151;
+  cursor: pointer;
+}
+
+/* ================= MESSAGE ================= */
+
+.message {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 15px 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  color: #374151;
+}
+
+/* ================= RESULTS ================= */
+
+.results-section {
+  width: 100%;
+  max-width: 900px;
+  margin: 70px auto 0;
+  text-align: left;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.results-label {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #4f46e5;
+  margin-bottom: 8px;
+}
+
+.results-header h2 {
+  font-size: 34px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.analysis-status {
+  color: #059669;
+  font-weight: 600;
+}
+
+/* ================= SCORE ================= */
+
+.score-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(31, 41, 55, 0.06);
+}
+
+.card-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.score-card h3 {
+  font-size: 42px;
+  color: #4f46e5;
+}
+
+.score-card h3 span {
+  font-size: 20px;
+  color: #9ca3af;
   font-weight: 500;
 }
 
-.analyze-button {
-  margin-top: 20px;
-  padding: 14px 28px;
-  font-size: 17px;
-  border: none;
-  border-radius: 10px;
-  background: #111827;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
+.score-circle {
+  width: 80px;
+  height: 80px;
+  border: 7px solid #4f46e5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  font-weight: 700;
+  color: #4f46e5;
 }
 
-.analyze-button:hover {
-  background: #374151;
-  transform: translateY(-2px);
+/* ================= RESULT CARDS ================= */
+
+.result-card {
+  margin-bottom: 20px;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(31, 41, 55, 0.06);
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.card-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef0ff;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+.card-heading h3 {
+  font-size: 21px;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.card-heading p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ================= SKILLS ================= */
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag,
+.missing-tag {
+  display: inline-block;
+  padding: 9px 14px;
+  border-radius: 20px;
+  background: #eef0ff;
+  color: #4338ca;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.missing-tag {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+/* ================= LIST ================= */
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.analysis-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
+.analysis-item > span {
+  flex-shrink: 0;
+  color: #4f46e5;
+  font-weight: 700;
+}
+
+.analysis-item p {
+  margin: 0;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* ================= FALLBACK ================= */
+
+.analysis-content {
+  white-space: pre-wrap;
+  font-family: Arial, sans-serif;
+  line-height: 1.7;
+  color: #374151;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 700px) {
+  .navbar {
+    padding: 18px 20px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .hero {
+    padding: 45px 15px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .upload-box {
+    padding: 28px 20px;
+  }
+
+  .results-section {
+    margin-top: 50px;
+  }
+
+  .results-header h2 {
+    font-size: 28px;
+  }
+
+  .score-card {
+    padding: 22px;
+  }
+
+  .result-card {
+    padding: 20px;
+  }
 }
