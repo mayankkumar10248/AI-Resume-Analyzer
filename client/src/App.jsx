@@ -3,9 +3,13 @@ import "./App.css";
 import Login from "./Login";
 import Register from "./Register";
 
-function App() {
+ function App() {
   const [showLogin, setShowLogin] = useState(false);
 
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -195,15 +199,18 @@ function App() {
 
   // ================= LOGIN PAGE =================
 
-  if (showLogin === true) {
-    return (
-      <Login
-        onBack={() => setShowLogin(false)}
-        onRegister={() => setShowLogin("register")}
-      />
-    );
-  }
-
+ if (showLogin === true) {
+  return (
+    <Login
+      onBack={() => setShowLogin(false)}
+      onRegister={() => setShowLogin("register")}
+      onLogin={(loggedInUser) => {
+        setUser(loggedInUser);
+        setShowLogin(false);
+      }}
+    />
+  );
+}
   // ================= REGISTER PAGE =================
 
   if (showLogin === "register") {
@@ -220,20 +227,44 @@ function App() {
 
       {/* NAVBAR */}
 
-      <header className="navbar">
+ <header className="navbar">
 
-        <div className="logo">
-          AI Resume Analyzer
-        </div>
+  <div className="logo">
+    AI Resume Analyzer
+  </div>
 
-        <button
-          className="login-button"
-          onClick={() => setShowLogin(true)}
-        >
-          Login
-        </button>
+  {user ? (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "15px",
+      }}
+    >
+      <span>
+        👋 Welcome, {user.name}
+      </span>
 
-      </header>
+      <button
+        className="login-button"
+        onClick={() => {
+          localStorage.removeItem("user");
+          setUser(null);
+        }}
+      >
+        Logout
+      </button>
+    </div>
+  ) : (
+    <button
+      className="login-button"
+      onClick={() => setShowLogin(true)}
+    >
+      Login
+    </button>
+  )}
+
+</header>
 
       {/* HERO */}
 
