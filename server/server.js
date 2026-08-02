@@ -163,13 +163,13 @@ const score = scoreMatch
   ? Number(scoreMatch[1])
   : 0;
 
-await Resume.create({
+ await Resume.create({
+  user: req.body.userId,
   fileName: req.file.originalname,
   resumeText,
   analysis,
   score,
 });
-
 res.json({
   success: true,
   fileName: req.file.originalname,

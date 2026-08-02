@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+ const mongoose = require("mongoose");
 
-const resumeSchema = new mongoose.Schema(
+const ResumeSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -15,10 +15,12 @@ const resumeSchema = new mongoose.Schema(
 
     resumeText: {
       type: String,
+      required: true,
     },
 
     analysis: {
       type: String,
+      required: true,
     },
 
     score: {
@@ -31,4 +33,4 @@ const resumeSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Resume", resumeSchema);
+module.exports = mongoose.model("Resume", ResumeSchema);
