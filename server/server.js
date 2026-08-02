@@ -6,8 +6,8 @@ const path = require("path");
 const pdfParse = require("pdf-parse");
 const dotenv = require("dotenv");
  const Groq = require("groq-sdk");
- const Resume = require("./models/Resume");
-const Resume = require("./models/Resume");
+ 
+ 
 
 // NEW
 const authRoutes = require("./routes/authRoutes");
@@ -158,20 +158,7 @@ ${resumeText}
 
 console.log("AI Analysis Completed");
 // Extract resume score
-const scoreMatch = analysis.match(/Resume Score\s*:\s*(\d+)/i);
-
-const score = scoreMatch
-  ? Number(scoreMatch[1])
-  : 0;
-
-// Save resume in MongoDB
-await Resume.create({
-  user: req.body.userId,
-  fileName: req.file.originalname,
-  resumeText,
-  analysis,
-  score,
-});
+ 
 
 // Save resume to MongoDB
 const scoreMatch = analysis.match(/Resume Score\s*:\s*(\d+)/i);
