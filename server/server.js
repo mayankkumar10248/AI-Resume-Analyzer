@@ -12,7 +12,7 @@ const dotenv = require("dotenv");
 // NEW
 const authRoutes = require("./routes/authRoutes");
 const connectDB = require("./config/db");
-const Resume = require("./models/Resume");
+const Resume = require("./models/resume");
  
 
 dotenv.config();
