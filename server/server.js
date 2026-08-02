@@ -5,11 +5,13 @@ const fs = require("fs");
 const path = require("path");
 const pdfParse = require("pdf-parse");
 const dotenv = require("dotenv");
-const Groq = require("groq-sdk");
+ const Groq = require("groq-sdk");
+const Resume = require("./models/Resume");
 
 // NEW
 const authRoutes = require("./routes/authRoutes");
 const connectDB = require("./config/db");
+ 
 
 dotenv.config();
 
@@ -149,17 +151,31 @@ ${resumeText}
         temperature: 0.3,
       });
 
-    const analysis =
-      chatCompletion.choices[0].message.content;
+     const analysis =
+  chatCompletion.choices[0].message.content;
 
-    console.log("AI Analysis Completed");
+console.log("AI Analysis Completed");
 
-    res.json({
-      success: true,
-      fileName: req.file.originalname,
-      resumeText,
-      analysis,
-    });
+// Save resume to MongoDB
+const scoreMatch = analysis.match(/Resume Score\s*:\s*(\d+)/i);
+
+const score = scoreMatch
+  ? Number(scoreMatch[1])
+  : 0;
+
+await Resume.create({
+  fileName: req.file.originalname,
+  resumeText,
+  analysis,
+  score,
+});
+
+res.json({
+  success: true,
+  fileName: req.file.originalname,
+  resumeText,
+  analysis,
+});
 
   } catch (error) {
 
