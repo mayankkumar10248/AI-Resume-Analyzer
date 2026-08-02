@@ -5,7 +5,7 @@ function Login({ onBack, onLogin, onRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -13,10 +13,38 @@ function Login({ onBack, onLogin, onRegister }) {
       return;
     }
 
-    alert("Login functionality will be connected to the backend soon.");
+    try {
+      const response = await fetch(
+        "https://ai-resume-analyzer-5csg.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
-    if (onLogin) {
-      onLogin();
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message);
+        return;
+      }
+
+      alert("Login Successful!");
+
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      if (onLogin) {
+        onLogin(data.user);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server Error");
     }
   };
 
@@ -28,15 +56,24 @@ function Login({ onBack, onLogin, onRegister }) {
           ← Back
         </button>
 
-        <h1>Welcome Back</h1>
+        <div className="login-header">
 
-        <p className="subtitle">
-          Login to your AI Resume Analyzer account
-        </p>
+          <div className="login-icon">
+            🔐
+          </div>
+
+          <h1>Welcome Back</h1>
+
+          <p>
+            Login to your AI Resume Analyzer account
+          </p>
+
+        </div>
 
         <form onSubmit={handleLogin}>
 
-          <div className="input-group">
+          <div className="form-group">
+
             <label>Email</label>
 
             <input
@@ -45,9 +82,11 @@ function Login({ onBack, onLogin, onRegister }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+
           </div>
 
-          <div className="input-group">
+          <div className="form-group">
+
             <label>Password</label>
 
             <input
@@ -56,19 +95,45 @@ function Login({ onBack, onLogin, onRegister }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
           </div>
 
-          <button type="submit" className="login-submit">
+          <div className="login-options">
+
+            <label className="remember-me">
+
+              <input type="checkbox" />
+
+              Remember me
+
+            </label>
+
+            <button
+              type="button"
+              className="forgot-button"
+            >
+              Forgot Password?
+            </button>
+
+          </div>
+
+          <button
+            type="submit"
+            className="login-submit"
+          >
             Login
           </button>
 
         </form>
 
-        <div className="register-link">
-          Don't have an account?{" "}
-          <span onClick={onRegister}>
+        <div className="signup-text">
+
+          Don't have an account?
+
+          <button onClick={onRegister}>
             Create account
-          </span>
+          </button>
+
         </div>
 
       </div>
