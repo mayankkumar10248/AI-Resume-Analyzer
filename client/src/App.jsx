@@ -64,8 +64,8 @@ import Register from "./Register";
         const formData = new FormData();
 
 formData.append("resume", selectedFile);
-formData.append("userId", user._id);
-formData.append("userId", user._id);
+formData.append("userId", user.id);
+ 
       const response = await fetch(
          "https://ai-resume-analyzer-5csg.onrender.com/api/upload",
         {
