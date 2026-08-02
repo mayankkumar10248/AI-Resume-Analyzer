@@ -50,6 +50,10 @@ import Register from "./Register";
 
   // Upload resume
   const handleUpload = async () => {
+    if (!user) {
+  setMessage("Please login first.");
+  return;
+}
     if (!selectedFile) {
       setMessage("Please select a resume first.");
       return;
@@ -64,7 +68,8 @@ import Register from "./Register";
         const formData = new FormData();
 
 formData.append("resume", selectedFile);
-formData.append("userId", user.id);
+console.log("CURRENT USER:", user);
+ formData.append("userId", user?._id || user?.id || "");
  
       const response = await fetch(
          "https://ai-resume-analyzer-5csg.onrender.com/api/upload",
